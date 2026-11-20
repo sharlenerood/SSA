@@ -18,7 +18,9 @@
     .dek { max-width:700px; margin:12px 0 0; color:var(--muted); font-size:clamp(15px,2vw,17px); line-height:1.45; }
     .nav-wrap { position:sticky; top:0; z-index:5; background:rgba(255,255,255,.97); border-block:1px solid var(--line); }
     .nav { display:flex; gap:7px; overflow-x:auto; padding:9px var(--gutter); scrollbar-width:none; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; }
-    .nav::-webkit-scrollbar, .track::-webkit-scrollbar { display:none; }
+    .nav::-webkit-scrollbar {
+    display:none;
+}
     .chip { flex:0 0 auto; display:inline-flex; align-items:center; min-height:38px; padding:8px 12px; border:1px solid #d1d4d7; border-radius:999px; background:#fff; color:#111; text-decoration:none; font-size:12px; font-weight:700; white-space:nowrap; }
     .count { margin-left:5px; color:#777c82; font-weight:400; }
     .shelf { padding:22px 0 5px; border-bottom:1px solid var(--line); scroll-margin-top:66px; }
@@ -28,8 +30,84 @@
     .controls { display:flex; gap:6px; }
     .arrow { width:38px; height:38px; border:1px solid #d0d3d6; border-radius:50%; background:#fff; color:#111; font-size:20px; line-height:1; cursor:pointer; }
     .arrow:disabled { opacity:.28; cursor:default; }
-    .track { display:flex; align-items:flex-start; gap:20px; overflow-x:auto; padding:0 var(--gutter) 18px; scroll-snap-type:x proximity; scroll-padding-left:var(--gutter); scrollbar-width:none; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; touch-action:pan-x pan-y; }
-    .book { flex:0 0 var(--slot); width:var(--slot); scroll-snap-align:start; }
+.track {
+    display:flex;
+    align-items:flex-start;
+    gap:20px;
+
+    width:100%;
+    min-width:0;
+
+    overflow-x:scroll;
+    overflow-y:hidden;
+
+    padding:0 var(--gutter) 18px;
+
+    scroll-snap-type:x proximity;
+    scroll-padding-left:var(--gutter);
+
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;
+    touch-action:pan-x pan-y;
+
+    /*
+     * Reserve room for the scrollbar so it does not cover
+     * the captions or cause the layout to jump.
+     */
+    scrollbar-gutter:stable;
+
+    /*
+     * Firefox and newer Chromium browsers.
+     */
+    scrollbar-width:auto;
+    scrollbar-color:#777c82 #eceeef;
+
+    /*
+     * Desktop drag behaviour.
+     */
+    cursor:grab;
+}
+
+/*
+ * Chrome, Edge, Safari and Chromium-based browsers.
+ */
+.track::-webkit-scrollbar {
+    *isplay:block;
+    height:14px;
+}
+
+*track::-webkit-scrollbar-track {
+ *  background:#eceeef;
+    border-r*dius:999px;
+    margin-inline:var(*-gutter);
+}
+
+.track::-webkit-scrol*bar-thumb {
+    min-width:44px;
+  * background:#777c82;
+    border:3p* solid #eceeef;
+    border-radius:*99px;
+}
+
+.track::-webkit-scrollbar*thumb:hover {
+    background:#4f54*a;
+}
+
+.track.is-dragging {
+    cur*or:grabbing;
+    scroll-snap-type:*one;
+    user-select:none;
+}
+
+.tra*k.is-dragging,
+.track.is-dragging * {
+    cursor:grabbing;
+}
+
+.track:*ocus-visible {
+    outline:3px sol*d rgba(24,119,189,.35);
+    outlin*-offset:-3px;
+}    .book { flex:0 0 var(--slot); width:var(--slot); scroll-snap-align:start; }
     .cover-frame { width:100%; height:var(--cover-h); display:flex; align-items:flex-start; justify-content:flex-start; }
     .cover { display:block; width:auto; height:auto; max-width:100%; max-height:100%; object-fit:contain; background:#f4f4f4; border-radius:2px; box-shadow:0 5px 14px rgba(0,0,0,.14); }
     .caption { width:100%; margin-top:8px; }
