@@ -18,9 +18,7 @@
     .dek { max-width:700px; margin:12px 0 0; color:var(--muted); font-size:clamp(15px,2vw,17px); line-height:1.45; }
     .nav-wrap { position:sticky; top:0; z-index:5; background:rgba(255,255,255,.97); border-block:1px solid var(--line); }
     .nav { display:flex; gap:7px; overflow-x:auto; padding:9px var(--gutter); scrollbar-width:none; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; }
-    .nav::-webkit-scrollbar {
-    display:none;
-}
+    .nav::-webkit-scrollbar { display:none; }
     .chip { flex:0 0 auto; display:inline-flex; align-items:center; min-height:38px; padding:8px 12px; border:1px solid #d1d4d7; border-radius:999px; background:#fff; color:#111; text-decoration:none; font-size:12px; font-weight:700; white-space:nowrap; }
     .count { margin-left:5px; color:#777c82; font-weight:400; }
     .shelf { padding:22px 0 5px; border-bottom:1px solid var(--line); scroll-margin-top:66px; }
@@ -30,84 +28,15 @@
     .controls { display:flex; gap:6px; }
     .arrow { width:38px; height:38px; border:1px solid #d0d3d6; border-radius:50%; background:#fff; color:#111; font-size:20px; line-height:1; cursor:pointer; }
     .arrow:disabled { opacity:.28; cursor:default; }
-.track {
-    display:flex;
-    align-items:flex-start;
-    gap:20px;
-
-    width:100%;
-    min-width:0;
-
-    overflow-x:scroll;
-    overflow-y:hidden;
-
-    padding:0 var(--gutter) 18px;
-
-    scroll-snap-type:x proximity;
-    scroll-padding-left:var(--gutter);
-
-    -webkit-overflow-scrolling:touch;
-    overscroll-behavior-x:contain;
-    touch-action:pan-x pan-y;
-
-    /*
-     * Reserve room for the scrollbar so it does not cover
-     * the captions or cause the layout to jump.
-     */
-    scrollbar-gutter:stable;
-
-    /*
-     * Firefox and newer Chromium browsers.
-     */
-    scrollbar-width:auto;
-    scrollbar-color:#777c82 #eceeef;
-
-    /*
-     * Desktop drag behaviour.
-     */
-    cursor:grab;
-}
-
-/*
- * Chrome, Edge, Safari and Chromium-based browsers.
- */
-.track::-webkit-scrollbar {
-    *isplay:block;
-    height:14px;
-}
-
-*track::-webkit-scrollbar-track {
- *  background:#eceeef;
-    border-r*dius:999px;
-    margin-inline:var(*-gutter);
-}
-
-.track::-webkit-scrol*bar-thumb {
-    min-width:44px;
-  * background:#777c82;
-    border:3p* solid #eceeef;
-    border-radius:*99px;
-}
-
-.track::-webkit-scrollbar*thumb:hover {
-    background:#4f54*a;
-}
-
-.track.is-dragging {
-    cur*or:grabbing;
-    scroll-snap-type:*one;
-    user-select:none;
-}
-
-.tra*k.is-dragging,
-.track.is-dragging * {
-    cursor:grabbing;
-}
-
-.track:*ocus-visible {
-    outline:3px sol*d rgba(24,119,189,.35);
-    outlin*-offset:-3px;
-}    .book { flex:0 0 var(--slot); width:var(--slot); scroll-snap-align:start; }
+    .track { display:flex; align-items:flex-start; gap:20px; width:100%; min-width:0; overflow-x:scroll; overflow-y:hidden; padding:0 var(--gutter) 18px; scroll-snap-type:x proximity; scroll-padding-left:var(--gutter); -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; touch-action:pan-x pan-y; scrollbar-gutter:stable; scrollbar-width:auto; scrollbar-color:#777c82 #eceeef; cursor:grab; }
+      .track::-webkit-scrollbar { display:block; height:14px; }
+      .track::-webkit-scrollbar-track { background:#eceeef; border-radius:999px; margin-inline:var(--gutter); }
+      .track::-webkit-scrollbar-thumb { min-width:44px; background:#777c82; border:3px solid #eceeef; border-radius:999px; }
+      .track::-webkit-scrollbar-thumb:hover { background:#4f545a; }
+      .track.is-dragging { cursor:grabbing; scroll-snap-type:none; user-select:none; }
+      .track.is-dragging, .track.is-dragging * { cursor:grabbing; }
+      .track:focus-visible { outline:3px solid rgba(24,119,189,.35); outline-offset:-3px; }
+    .book { flex:0 0 var(--slot); width:var(--slot); scroll-snap-align:start; }
     .cover-frame { width:100%; height:var(--cover-h); display:flex; align-items:flex-start; justify-content:flex-start; }
     .cover { display:block; width:auto; height:auto; max-width:100%; max-height:100%; object-fit:contain; background:#f4f4f4; border-radius:2px; box-shadow:0 5px 14px rgba(0,0,0,.14); }
     .caption { width:100%; margin-top:8px; }
@@ -125,22 +54,9 @@
       .shelf-head { padding-bottom:9px; }
       .controls { display:none; }
       .hint { display:block; }
-.track {
-    gap:12px;
-    padding-bottom:16px;
-
-    /*
-     * Mobile users swipe, so the visible desktop scrollbar
-     * is not necessary here.
-     */
-    scrollbar-width:none;
-    scrollbar-gutter:auto;
-    cursor:auto;
-}
-
-.track::-webkit-scrollbar {
-    display:none;
-}      .title { font-size:11.5px; }
+      .track { gap:12px; padding-bottom:16px; scrollbar-width:none; scrollbar-gutter:auto; cursor:auto; }
+        .track::-webkit-scrollbar { display:none; }
+      .title { font-size:11.5px; }
       .author { font-size:10.5px; }
     }
     @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
@@ -662,7 +578,7 @@
   {
     "id": 72,
     "title": "US Intelligence Failure and Knowledge Creation",
-    "author": "Carl W Ford Jr and Kathleen M Vogel",
+    "author": "Car W Ford Jr and Kathleen Vogel",
     "category": "Tradecraft",
     "image": "covers/book-72.webp"
   }
@@ -695,116 +611,37 @@
         section.id = id;
         section.innerHTML = `<div class="shelf-head"><div><h2 class="shelf-title">${esc(category)}</h2><p class="meta">${group.length} ${group.length === 1 ? 'book' : 'books'}</p></div><p class="hint" aria-hidden="true">Swipe to browse →</p><div class="controls"><button class="arrow prev" type="button" aria-label="Previous books">‹</button><button class="arrow next" type="button" aria-label="Next books">›</button></div></div><div class="track" tabindex="0" aria-label="${esc(category)} books"></div>`;
         const track = section.querySelector('.track');
-        /*
- * Desktop mouse drag support.
- *
- * Pointer Events cover mouse, pen and compatible touch input.
- * Touch scrolling is still handled natively by the browser.
- */
-let isDragging = false;
-let dragStartX = 0;
-let dragStartScrollLeft = 0;
-let draggedDistance = 0;
-
-const beginDrag = event => {
-    /*
-     * Only use custom dragging for a primary mouse button.
-     * Touch and pen input retain native browser scrolling.
-     */
-    if (event.pointerType !== 'm*use' || event.button !== 0) return*
-
-    isDragging = true;
-    dragg*dDistance = 0;
-    dragStartX = ev*nt.clientX;
-    dragStartScrollLeft = track.scrollLeft;
-
-    track.classList.add('is-dragging');
-    track.setPointerCapture(event.pointerId);
-};
-
-const continueDrag = event => {
-    if (!isDragging) return;
-
-    const distance = event.clientX - dragStartX;
-    draggedDistance = Math.max(draggedDistance, Math.abs(distance));
-
-    track.scrollLeft = dragStartScrollLeft - distance;
-
-    /*
-     * Prevent text/image selection while dragging.
-     */
-    event.preventDefault();
-};
-
-*onst endDrag = event => {
-    if (*isDragging) return;
-
-    isDraggin* = false;
-    track.classList.remo*e('is-dragging');
-
-    if (track.h*sPointerCapture(event.pointerId)) *
-        track.releasePointerCaptu*e(event.pointerId);
-    }
-};
-
-track.addEventListener('pointerdown', beginDrag);
-track.addEventListener('pointermove', continueDrag);
-track.addEventListener('pointerup', endDrag);
-track.addEventListener('pointercancel', endDrag);
-track.addEventListener('lostpointercapture', () => {
-    isDragging = false;
-    track.classList.remove('is-dragging');
-});
-
-/*
- * Prevent an accidental click after the user has dragged.
- * This will also be useful if book links are added later.
- */
-track.addEventListener('click', *vent => {
-    if (draggedDistance * 6) {
-        event.preventDefault*);
-        event.stopPropagation()*
-        draggedDistance = 0;
-    *
-}, true);
-    track.addEventListene*('keydown', event => {
-    const r*ducedMotion = matchMedia(
-        *(prefers-reduced-motion:reduce)'
- *  ).matches;
-
-    const amount = M*th.max(track.clientWidth * .82, 24*);
-
-    if (event.key === 'ArrowRi*ht') {
-        event.preventDefaul*();
-        track.scrollBy({
-     *      left:amount,
-            beh*vior:reducedMotion ? 'auto' : 'smo*th'
-        });
-    }
-
-    if (eve*t.key === 'ArrowLeft') {
-        e*ent.preventDefault();
-        trac*.scrollBy({
-            left:-amou*t,
-            behavior:reducedMot*on ? 'auto' : 'smooth'
-        });*    }
-
-    if (event.key === 'Home*) {
-        event.preventDefault()*
-        track.scrollTo({
-        *   left:0,
-            behavior:re*ucedMotion ? 'auto' : 'smooth'
-   *    });
-    }
-
-    if (event.key =*= 'End') {
-        event.preventDe*ault();
-        track.scrollTo({
- *          left:track.scrollWidth,
-*           behavior:reducedMotion * 'auto' : 'smooth'
-        });
-   *}
-});
+          let isDragging = false, dragStartX = 0, dragStartScrollLeft = 0, draggedDistance = 0;
+          const beginDrag = event => {
+            if (event.pointerType !== 'mouse' || event.button !== 0) return;
+            isDragging = true; draggedDistance = 0; dragStartX = event.clientX; dragStartScrollLeft = track.scrollLeft;
+            track.classList.add('is-dragging'); track.setPointerCapture(event.pointerId);
+          };
+          const continueDrag = event => {
+            if (!isDragging) return;
+            const distance = event.clientX - dragStartX;
+            draggedDistance = Math.max(draggedDistance, Math.abs(distance));
+            track.scrollLeft = dragStartScrollLeft - distance; event.preventDefault();
+          };
+          const endDrag = event => {
+            if (!isDragging) return;
+            isDragging = false; track.classList.remove('is-dragging');
+            if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
+          };
+          track.addEventListener('pointerdown', beginDrag);
+          track.addEventListener('pointermove', continueDrag);
+          track.addEventListener('pointerup', endDrag);
+          track.addEventListener('pointercancel', endDrag);
+          track.addEventListener('lostpointercapture', () => { isDragging = false; track.classList.remove('is-dragging'); });
+          track.addEventListener('click', event => { if (draggedDistance > 6) { event.preventDefault(); event.stopPropagation(); } draggedDistance = 0; }, true);
+          track.addEventListener('keydown', event => {
+            const behavior = matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth';
+            const amount = Math.max(track.clientWidth * .82, 240);
+            if (event.key === 'ArrowRight') { event.preventDefault(); track.scrollBy({left:amount, behavior}); }
+            if (event.key === 'ArrowLeft') { event.preventDefault(); track.scrollBy({left:-amount, behavior}); }
+            if (event.key === 'Home') { event.preventDefault(); track.scrollTo({left:0, behavior}); }
+            if (event.key === 'End') { event.preventDefault(); track.scrollTo({left:track.scrollWidth, behavior}); }
+          });
 
         group.forEach(book => {
           const article = document.createElement('article');
