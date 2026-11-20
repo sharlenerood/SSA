@@ -125,8 +125,22 @@
       .shelf-head { padding-bottom:9px; }
       .controls { display:none; }
       .hint { display:block; }
-      .track { gap:12px; padding-bottom:16px; }
-      .title { font-size:11.5px; }
+.track {
+    gap:12px;
+    padding-bottom:16px;
+
+    /*
+     * Mobile users swipe, so the visible desktop scrollbar
+     * is not necessary here.
+     */
+    scrollbar-width:none;
+    scrollbar-gutter:auto;
+    cursor:auto;
+}
+
+.track::-webkit-scrollbar {
+    display:none;
+}      .title { font-size:11.5px; }
       .author { font-size:10.5px; }
     }
     @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
@@ -681,6 +695,116 @@
         section.id = id;
         section.innerHTML = `<div class="shelf-head"><div><h2 class="shelf-title">${esc(category)}</h2><p class="meta">${group.length} ${group.length === 1 ? 'book' : 'books'}</p></div><p class="hint" aria-hidden="true">Swipe to browse →</p><div class="controls"><button class="arrow prev" type="button" aria-label="Previous books">‹</button><button class="arrow next" type="button" aria-label="Next books">›</button></div></div><div class="track" tabindex="0" aria-label="${esc(category)} books"></div>`;
         const track = section.querySelector('.track');
+        /*
+ * Desktop mouse drag support.
+ *
+ * Pointer Events cover mouse, pen and compatible touch input.
+ * Touch scrolling is still handled natively by the browser.
+ */
+let isDragging = false;
+let dragStartX = 0;
+let dragStartScrollLeft = 0;
+let draggedDistance = 0;
+
+const beginDrag = event => {
+    /*
+     * Only use custom dragging for a primary mouse button.
+     * Touch and pen input retain native browser scrolling.
+     */
+    if (event.pointerType !== 'm*use' || event.button !== 0) return*
+
+    isDragging = true;
+    dragg*dDistance = 0;
+    dragStartX = ev*nt.clientX;
+    dragStartScrollLeft = track.scrollLeft;
+
+    track.classList.add('is-dragging');
+    track.setPointerCapture(event.pointerId);
+};
+
+const continueDrag = event => {
+    if (!isDragging) return;
+
+    const distance = event.clientX - dragStartX;
+    draggedDistance = Math.max(draggedDistance, Math.abs(distance));
+
+    track.scrollLeft = dragStartScrollLeft - distance;
+
+    /*
+     * Prevent text/image selection while dragging.
+     */
+    event.preventDefault();
+};
+
+*onst endDrag = event => {
+    if (*isDragging) return;
+
+    isDraggin* = false;
+    track.classList.remo*e('is-dragging');
+
+    if (track.h*sPointerCapture(event.pointerId)) *
+        track.releasePointerCaptu*e(event.pointerId);
+    }
+};
+
+track.addEventListener('pointerdown', beginDrag);
+track.addEventListener('pointermove', continueDrag);
+track.addEventListener('pointerup', endDrag);
+track.addEventListener('pointercancel', endDrag);
+track.addEventListener('lostpointercapture', () => {
+    isDragging = false;
+    track.classList.remove('is-dragging');
+});
+
+/*
+ * Prevent an accidental click after the user has dragged.
+ * This will also be useful if book links are added later.
+ */
+track.addEventListener('click', *vent => {
+    if (draggedDistance * 6) {
+        event.preventDefault*);
+        event.stopPropagation()*
+        draggedDistance = 0;
+    *
+}, true);
+    track.addEventListene*('keydown', event => {
+    const r*ducedMotion = matchMedia(
+        *(prefers-reduced-motion:reduce)'
+ *  ).matches;
+
+    const amount = M*th.max(track.clientWidth * .82, 24*);
+
+    if (event.key === 'ArrowRi*ht') {
+        event.preventDefaul*();
+        track.scrollBy({
+     *      left:amount,
+            beh*vior:reducedMotion ? 'auto' : 'smo*th'
+        });
+    }
+
+    if (eve*t.key === 'ArrowLeft') {
+        e*ent.preventDefault();
+        trac*.scrollBy({
+            left:-amou*t,
+            behavior:reducedMot*on ? 'auto' : 'smooth'
+        });*    }
+
+    if (event.key === 'Home*) {
+        event.preventDefault()*
+        track.scrollTo({
+        *   left:0,
+            behavior:re*ucedMotion ? 'auto' : 'smooth'
+   *    });
+    }
+
+    if (event.key =*= 'End') {
+        event.preventDe*ault();
+        track.scrollTo({
+ *          left:track.scrollWidth,
+*           behavior:reducedMotion * 'auto' : 'smooth'
+        });
+   *}
+});
 
         group.forEach(book => {
           const article = document.createElement('article');
